@@ -12,6 +12,11 @@ class helper_plugin_maintenance extends DokuWiki_Plugin {
         $this->script_last_pid_file = $this->temp_dir.'/last.pid';
         $this->script_last_script_file = $this->temp_dir.'/last.script';
         $this->manual_lock_file = $this->temp_dir.'/.lock';
+        // put environmental variables to make shell scripts work right
+        $user = posix_getpwuid(posix_geteuid());
+        putenv('HOME='.$user['dir']);
+        putenv('USER='.$user['name']);
+        putenv('LANG='."en_US.UTF-8");
     }
 
     /**
