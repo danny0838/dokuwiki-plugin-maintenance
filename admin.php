@@ -76,18 +76,9 @@ class admin_plugin_maintenance extends DokuWiki_Admin_Plugin {
         html_form('', $form);
     }
 
-    function getScript() {
-        $script = $this->getConf('script');
-        $script = str_replace( 
-            array('%dokuwiki%', '%bin%'), 
-            array(substr(DOKU_INC, 0, -1), dirname(__FILE__).'/bin'),
-            $script );
-        return $script;
-    }
-
     function start() {
         // check script
-        $script = $this->getScript();
+        $script = $this->helper->get_script();
         if (!is_file($script)) {
             $msg = sprintf( $this->getLang('start_no_script'), $script);
             msg($msg, -1);

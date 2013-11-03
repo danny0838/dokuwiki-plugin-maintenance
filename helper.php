@@ -15,6 +15,18 @@ class helper_plugin_maintenance extends DokuWiki_Plugin {
     }
 
     /**
+     * Gets the configured script
+     */
+    function get_script() {
+        $script = $this->getConf('script');
+        $script = str_replace( 
+            array('%dokuwiki%', '%bin%'), 
+            array(substr(DOKU_INC, 0, -1), dirname(__FILE__).'/bin'),
+            $script );
+        return $script;
+    }
+
+    /**
      * Checks whether the site is currently locked
      * @return  integer  1: locked, 0: not locked
      */
