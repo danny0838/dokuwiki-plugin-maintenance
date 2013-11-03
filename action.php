@@ -19,6 +19,9 @@ class action_plugin_maintenance extends DokuWiki_Action_Plugin {
             $contr->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'before_start', array());
             $contr->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'before_action', array());
         }
+        else if ($this->getConf('script_auto')) {
+            $contr->register_hook('DOKUWIKI_DONE', 'AFTER', $this, 'after_done', array());
+        }
     }
 
     function before_start() {
@@ -32,5 +35,10 @@ class action_plugin_maintenance extends DokuWiki_Action_Plugin {
         msg('Command disabled: '.htmlspecialchars($act),-1);
         $ACT = 'show';
         $event->preventDefault();
+    }
+
+    function after_done(&$event, $param) {
+        if ($this->helper->is_locked()) return;
+        if ($this->helper->script_autocheck()) $this->helper->script_start($this->helper->get_script());
     }
 }

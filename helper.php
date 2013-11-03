@@ -79,6 +79,18 @@ class helper_plugin_maintenance extends DokuWiki_Plugin {
     }
 
     /**
+     * Checks whether it's time to run
+     */
+    function script_autocheck() {
+        $file = $this->script_last_pid_file;
+        $last_run = (is_file($file)) ? filemtime($file) : 0;
+        $interval = $this->getConf('script_auto_interval');
+        $now = time();
+        if ($now > $last_run+$interval) return true;
+        return false;
+    }
+
+    /**
      * Checks all script locks
      */
     function script_updatelockall() {
