@@ -84,6 +84,12 @@ class admin_plugin_maintenance extends DokuWiki_Admin_Plugin {
             msg($msg, -1);
             return;
         }
+        // check if already locked
+        if ($this->helper->is_locked()) {
+            $msg = sprintf( $this->getLang('locked'), $script);
+            msg($msg, -1);
+            return;
+        }
         // lock the site and run script
         $result = $this->helper->script_start($script);
         switch ($result) {
@@ -121,6 +127,12 @@ class admin_plugin_maintenance extends DokuWiki_Admin_Plugin {
     }
 
     function lock() {
+        // check if already locked
+        if ($this->helper->is_locked()) {
+            $msg = sprintf( $this->getLang('locked'), $script);
+            msg($msg, -1);
+            return;
+        }
         $result = $this->helper->manual_lock();
         switch ($result) {
             case 0:

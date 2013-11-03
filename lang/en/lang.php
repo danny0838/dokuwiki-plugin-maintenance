@@ -3,6 +3,8 @@
  * English language file
  */
 
+$lang['locked'] = 'The site is currently locked.';
+
 $lang['start_btn'] = 'Start';
 $lang['start_desc'] = 'Runs the maintenance script. The site is automatically locked during the running.';
 $lang['start_no_script'] = 'The specified maintenance script "%s" does not exist.';
