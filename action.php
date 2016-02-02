@@ -14,7 +14,7 @@ class action_plugin_maintenance extends DokuWiki_Action_Plugin {
     /**
      * register the eventhandlers
      */
-    function register(&$contr){
+    function register(Doku_Event_Handler $contr){
         if ($this->helper->is_locked()) {
             $contr->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'before_start', array());
             $contr->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'before_action', array());
